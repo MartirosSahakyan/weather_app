@@ -1,18 +1,53 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import './index.css';
-// import App from './App';
+import App from "./App";
 // import reportWebVitals from './reportWebVitals';
-const name = 'Mrdo'
-const element = <h1>Hello {name}</h1>;
+
+const weatherInfo = [
+  {
+    weekDey: "Monday",
+    imgURL: "",
+    temp: "36C",
+  },
+  {
+    weekDey: "Tuesday",
+    imgURL: "",
+    temp: "32C",
+  },
+  {
+    weekDey: "Wednesday",
+    imgURL: "",
+    temp: "35C",
+  },
+  {
+    weekDey: "Thursday",
+    imgURL: "",
+    temp: "45C",
+  },
+  {
+    weekDey: "Friday",
+    imgURL: "",
+    temp: "36C",
+  },
+  {
+    weekDey: "Saturday",
+    imgURL: "",
+    temp: "37C",
+  },
+  {
+    weekDey: "Sunday",
+    imgURL: "",
+    temp: "39C",
+  },
+];
 
 ReactDOM.render(
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>,
-  element,
+  <React.StrictMode>
+    <App weatherInfo={weatherInfo}/>,
+  </React.StrictMode>,
   document.getElementById("root")
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
