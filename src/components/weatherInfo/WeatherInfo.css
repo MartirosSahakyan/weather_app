@@ -1,0 +1,36 @@
+.weather-info {
+    max-width: 55%;
+  }
+  .weather-info__icon {
+    width: 10rem;
+  }
+  .weather-info__description {
+    margin-bottom: 1rem;
+    font-size: 4rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .weather-info__city {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+  .weather-info__date {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  .weather-info__time {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  .weather-info__temperature {
+    margin-bottom: 0.2rem;
+    margin-top: 2rem;
+    font-size: 6rem;
+    font-weight: 700;
+  }
+
+
+
+
+  

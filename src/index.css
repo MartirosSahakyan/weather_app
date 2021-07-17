@@ -1,0 +1,25 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: montserrat, sans-serif;
+}
+html{
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+@media (max-width: 1700px) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media (max-width: 1200px) {
+  html {
+    font-size: 50%;
+  }
+}
+@media (max-width: 750px) {
+  html {
+    font-size: 40%;
+  }
+}

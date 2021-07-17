@@ -1,0 +1,22 @@
+.weather-details {
+    margin-bottom: 3rem;
+    display: flex;
+  }
+  .weather-details__icon {
+    width: 3rem;
+    margin-right: 1rem;
+  }
+  .weather-details__label {
+    margin-bottom: 0.6rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  @media (max-width: 750px) {
+    .weather-details__label {
+      font-size: 1.4rem;
+    }
+  }
+  .weather-details__data {
+    font-size: 2.6rem;
+    font-weight: 600;
+  }
