@@ -1,6 +1,6 @@
 import "./SearchBox.css";
 
-export function SearchBox({ handlerInput, handlerButton }) {
+export function SearchBox({ handlerInput, handlerSearchButton, handlerChangeUnits,units }) {
   return (
     <div className="weather-info">
       <div className="search-box">
@@ -10,10 +10,13 @@ export function SearchBox({ handlerInput, handlerButton }) {
           className="search-box-input"
           placeholder="Search Location..."
         />
-        <div onClick={handlerButton} className="search">
-         
+        <div onClick={handlerSearchButton} className="search">
+       
         </div>
       </div>
+      <div onClick ={handlerChangeUnits}  className="weather-info__units">
+        {units === 'metric' ? 'Display °F' : 'Display °C'}
+          </div> 
     </div>
   );
 }

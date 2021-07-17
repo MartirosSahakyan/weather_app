@@ -2,7 +2,7 @@ import { formatDate, formatTime, toUpperCaseWords } from "../../helpers/helper";
 import { getIcon } from "../../helpers/getIcon";
 import './WeatherInfo.css'
 
-export function WeatherInfo({current, cityName}) {
+export function WeatherInfo({current, cityName, units}) {
   return (
     <div className="weather-info">
       <div className="weather-info__description">
@@ -12,7 +12,7 @@ export function WeatherInfo({current, cityName}) {
       <div className="weather-info__date">{formatDate(current.dt)}</div>
       <div className="weather-info__date">{formatTime(current.dt)}</div>
       <div className="weather-info__temperature">
-        {Math.round(current.temp)} °C
+        {Math.round(current.temp)} {units === 'metric' ? '°C' : '°F'}
       </div>
       <div className="weather-info__icon">
         {getIcon(current.weather[0].icon)}

@@ -11,6 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       data: "",
+      units: 'metric',
     };
   }
   componentDidMount() {
@@ -18,7 +19,7 @@ class App extends React.Component {
       .then((response) => response.json())
       .then(({ coord: { lat, lon } }) => {
         return fetch(
-          `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${API_KEY}`
+          `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=${this.state.units}&appid=${API_KEY}`
         )
           .then((res) => res.json())
           .then((res) => {
@@ -30,13 +31,13 @@ class App extends React.Component {
   handlerInput = ({ target: { value } }) => {
     cityName = value;
   };
-  handlerButton = () => {
+  handlerSearchButton = () => {
     fetch(`${API_URL}weather?q=${cityName}&appid=${API_KEY}`)
       .then((response) => response.json())
       // .then((res) => console.log(res))
       .then(({ coord: { lat, lon } }) => {
         return fetch(
-          `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${API_KEY}`
+          `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=${this.state.units}&appid=${API_KEY}`
         )
           .then((res) => res.json())
           .then((res) => {
@@ -44,7 +45,25 @@ class App extends React.Component {
           });
       });
   };
-
+  handlerChangeUnits = ()=>{
+    if (this.state.units === 'metric') {
+      this.setState({units: 'imperial'})
+    }else{
+      this.setState({units: 'metric'})
+    }
+    fetch(`${API_URL}weather?q=${cityName}&appid=${API_KEY}`)
+      .then((response) => response.json())
+      // .then((res) => console.log(res))
+      .then(({ coord: { lat, lon } }) => {
+        return fetch(
+          `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=${this.state.units}&appid=${API_KEY}`
+        )
+          .then((res) => res.json())
+          .then((res) => {
+            this.setState({ data: res });
+          });
+      });
+  }
   render() {
     if (!this.state.data) {
       return <div>LOADING......</div>;
@@ -59,12 +78,15 @@ class App extends React.Component {
             <WeatherInfo
               current={this.state.data.current}
               cityName={cityName}
+              units={this.state.units}
             />
             <SearchBox
               handlerInput={this.handlerInput}
-              handlerButton={this.handlerButton}
+              handlerSearchButton={this.handlerSearchButton}
+              units={this.state.units}
+              handlerChangeUnits = {this.handlerChangeUnits}
             />
-            <WeatherDetails current={this.state.data.current} />
+            <WeatherDetails current={this.state.data.current} units={this.state.units} />
           </div>
         </div>
       );
