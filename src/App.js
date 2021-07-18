@@ -34,7 +34,28 @@ class App extends React.Component {
   handlerInput = ({ target: { value } }) => {
     cityName = value;
   };
-
+  handlerKeyDown = (evt) => {
+    if (evt.key === "Enter") {
+      fetch(`${API_URL}weather?q=${cityName}&appid=${API_KEY}`)
+        .then(handleResponse)
+        .then(({ coord: { lat, lon } }) => {
+          return fetch(
+            `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=${this.state.units}&appid=${API_KEY}`
+          )
+            .then((res) => res.json())
+            .then((res) => {
+              this.setState({
+                data: res,
+                error: false,
+              });
+              return res;
+            });
+        })
+        .catch((e) => {
+          this.setState({ error: true });
+        });
+    }
+  };
   handlerSearchButton = () => {
     fetch(`${API_URL}weather?q=${cityName}&appid=${API_KEY}`)
       .then(handleResponse)
@@ -49,7 +70,8 @@ class App extends React.Component {
               error: false,
             });
             return res;
-          });
+          })
+          .catch((e) => alert("reload page window.location.reload()"));
       })
       .catch((e) => {
         this.setState({ error: true });
@@ -97,6 +119,7 @@ class App extends React.Component {
             />
             <SearchBox
               handlerInput={this.handlerInput}
+              handlerKeyDown={this.handlerKeyDown}
               handlerSearchButton={this.handlerSearchButton}
               units={units}
               handlerChangeUnits={this.handlerChangeUnits}
@@ -109,7 +132,7 @@ class App extends React.Component {
             <div className="change-forecast">
               <div className="daily-btn forecast-selected">Daily</div>
             </div>
-            <DailyForecast dailyWeatherInfo={daily} units={units}/>
+            <DailyForecast dailyWeatherInfo={daily} units={units} />
           </div>
         </div>
       );
