@@ -81,10 +81,11 @@ class App extends React.Component {
     } else {
       let {
         data: { current },
+        data: { daily },
         error,
         units,
       } = this.state;
-      // console.log(current);
+      // console.log(daily);
       // console.log(error);
       return (
         <div className="body">
@@ -103,12 +104,12 @@ class App extends React.Component {
             />
             <WeatherDetails currWeatherInfo={current} units={units} />
           </div>
-          
+
           <div className="forecast">
             <div className="change-forecast">
               <div className="daily-btn forecast-selected">Daily</div>
             </div>
-            <DailyForecast />
+            <DailyForecast dailyWeatherInfo={daily} units={units}/>
           </div>
         </div>
       );
