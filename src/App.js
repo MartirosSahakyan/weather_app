@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { DailyForecast } from "./components/DailyForecast/DailyForecast";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { WeatherDetails } from "./components/weatherDetails/WeatherDetails";
 import { WeatherInfo } from "./components/weatherInfo/WeatherInfo";
@@ -101,6 +102,13 @@ class App extends React.Component {
               error={error}
             />
             <WeatherDetails currWeatherInfo={current} units={units} />
+          </div>
+          
+          <div className="forecast">
+            <div className="change-forecast">
+              <div className="daily-btn forecast-selected">Daily</div>
+            </div>
+            <DailyForecast />
           </div>
         </div>
       );

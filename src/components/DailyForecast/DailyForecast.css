@@ -1,0 +1,44 @@
+.forecast-daily-container {
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 550px) {
+  .forecast-daily-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.forecast-daily__day {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+@media (max-width: 550px) {
+  .forecast-daily__day {
+    margin-right: auto;
+  }
+}
+.forecast-daily__temperature-high {
+  margin-bottom: 0.4rem;
+  font-size: 3rem;
+  font-weight: 700;
+}
+.forecast-daily__temperature-low {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+@media (max-width: 550px) {
+  .forecast-daily__temperature {
+    margin-right: 4rem;
+    width: 55px;
+  }
+}
+.forecast-daily__icon {
+  margin-top: 2rem;
+  width: 4rem;
+}
+@media (max-width: 550px) {
+  .forecast-daily__icon {
+    margin-top: 1rem;
+  }
+}
