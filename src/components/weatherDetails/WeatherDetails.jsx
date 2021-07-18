@@ -1,6 +1,6 @@
 import "./WeatherDetails.css";
 
-export function WeatherDetails({current, units}) {
+export function WeatherDetails({currWeatherInfo, units}) {
   return (
     <div className="weather-details-container">
 
@@ -27,7 +27,7 @@ export function WeatherDetails({current, units}) {
         <div className="weather-details__info">
           <div className="weather-details__label">Feels Like</div>
           <div className="weather-details__data" id="feels-like">
-            {Math.round(current.feels_like)} {units === 'metric' ? '°C' : '°F'}
+            {Math.round(currWeatherInfo.feels_like)} {units === 'metric' ? '°C' : '°F'}
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@ export function WeatherDetails({current, units}) {
         <div className="weather-details__info">
           <div className="weather-details__label">Humidity</div>
           <div className="weather-details__data" id="humidity">
-            {current.humidity} %
+            {currWeatherInfo.humidity} %
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@ export function WeatherDetails({current, units}) {
         <div className="weather-details__info">
           <div className="weather-details__label">Wind Speed</div>
           <div className="weather-details__data" id="wind-speed">
-            {current.wind_speed} {units === 'metric' ? 'km/h' : 'mph'}
+            {currWeatherInfo.wind_speed} {units === 'metric' ? 'km/h' : 'mph'}
           </div>
         </div>
       </div>
