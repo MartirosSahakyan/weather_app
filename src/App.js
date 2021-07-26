@@ -7,6 +7,7 @@ import { WeatherInfo } from "./components/weatherInfo/WeatherInfo";
 import { getWeatherByCityName, getWeatherByCoords } from "./service/service";
 import { UNITS } from "./helpers/constants";
 
+
 let cityName = "London";
 class App extends React.Component {
   constructor(props) {
@@ -14,27 +15,43 @@ class App extends React.Component {
     this.state = {
       data: "",
       units: UNITS.CELSIUS,
-      error: false,
+      error: {
+        cityNameError: false,
+        coordsError: false,
+      },
+      loading: false,
     };
   }
-  componentDidMount() {
+
+   getWeatherData(cityName,units) {
+    this.setState({ loading: true });
     getWeatherByCityName(cityName)
       .then(({ coord }) => {
-        return getWeatherByCoords(coord, this.state.units)
+        return getWeatherByCoords(coord, units)
           .then((res) => {
             this.setState({
               data: res,
-              error: false,
+              error: {
+                cityNameError: false,
+                coordsError: false,
+              },
+              loading: false,
+              units
             });
             return res;
           })
           .catch((e) => {
+            this.setState({ error: { coordsError: true }, loading: false });
             alert("reload page window.location.reload()");
           });
       })
       .catch((e) => {
-        this.setState({ error: true });
+        this.setState({ error: { cityNameError: true }, loading: false });
       });
+  }
+
+  componentDidMount() {
+    this.getWeatherData(cityName, this.state.units)
   }
 
   handlerInput = ({ target: { value } }) => {
@@ -43,111 +60,58 @@ class App extends React.Component {
 
   handlerKeyDown = (evt) => {
     if (evt.key === "Enter") {
-      getWeatherByCityName(cityName)
-        .then(({ coord }) => {
-          return getWeatherByCoords(coord, this.state.units)
-            .then((res) => {
-              this.setState({
-                data: res,
-                error: false,
-              });
-              return res;
-            })
-            .catch((e) => {
-              alert("reload page window.location.reload()");
-            });
-        })
-        .catch((e) => {
-          this.setState({ error: true });
-        });
+      this.getWeatherData(cityName, this.state.units)    
     }
   };
 
   handlerSearchButton = () => {
-    getWeatherByCityName(cityName)
-      .then(({ coord }) => {
-        return getWeatherByCoords(coord, this.state.units)
-          .then((res) => {
-            this.setState({
-              data: res,
-              error: false,
-            });
-            return res;
-          })
-          .catch((e) => {
-            alert("reload page window.location.reload()");
-          });
-      })
-      .catch((e) => {
-        this.setState({ error: true });
-      });
+    this.getWeatherData(cityName, this.state.units)
   };
 
   handlerChangeUnits = () => {
-    if (this.state.units === UNITS.CELSIUS) {
-      this.setState({ units: UNITS.FAHRENHEIT });
-    } else {
-      this.setState({ units: UNITS.CELSIUS });
-    }
-    getWeatherByCityName(cityName)
-      .then(({ coord }) => {
-        return getWeatherByCoords(coord, this.state.units)
-          .then((res) => {
-            this.setState({
-              data: res,
-              error: false,
-            });
-            return res;
-          })
-          .catch((e) => {
-            alert("reload page window.location.reload()");
-          });
-      })
-      .catch((e) => {
-        this.setState({ error: true });
-      });
+    const units =
+      this.state.units === UNITS.CELSIUS ? UNITS.FAHRENHEIT : UNITS.CELSIUS;
+      this.getWeatherData(cityName, units)
   };
 
   render() {
-    if (!this.state.data) {
-      return "";
-    } else {
-      let {
-        data: { current },
-        data: { daily },
-        error,
-        units,
-      } = this.state;
-      // console.log(daily);
-      // console.log(error);
-      return (
-        <div className="body">
-          <div className="main">
-            <WeatherInfo
-              currWeatherInfo={current}
-              cityName={cityName}
-              units={units}
-            />
-            <SearchBox
-              handlerInput={this.handlerInput}
-              handlerKeyDown={this.handlerKeyDown}
-              handlerSearchButton={this.handlerSearchButton}
-              units={units}
-              handlerChangeUnits={this.handlerChangeUnits}
-              error={error}
-            />
-            <WeatherDetails currWeatherInfo={current} units={units} />
-          </div>
+    if (!this.state.data) return "";
 
-          <div className="forecast">
-            <div className="change-forecast">
-              <div className="daily-btn forecast-selected">Daily</div>
-            </div>
-            <DailyForecast dailyWeatherInfo={daily} units={units} />
-          </div>
+    let {
+      data: { current },
+      data: { daily },
+      error,
+      units,
+    } = this.state;
+    // console.log(daily);
+    // console.log(error);
+    return (
+      <div className="body">
+        <div className="main">
+          <WeatherInfo
+            currWeatherInfo={current}
+            cityName={cityName}
+            units={units}
+          />
+          <SearchBox
+            handlerInput={this.handlerInput}
+            handlerKeyDown={this.handlerKeyDown}
+            handlerSearchButton={this.handlerSearchButton}
+            units={units}
+            handlerChangeUnits={this.handlerChangeUnits}
+            error={error.cityNameError}
+          />
+          <WeatherDetails currWeatherInfo={current} units={units} />
         </div>
-      );
-    }
+
+        <div className="forecast">
+          <div className="change-forecast">
+            <div className="daily-btn forecast-selected">Daily</div>
+          </div>
+          <DailyForecast dailyWeatherInfo={daily} units={units} />
+        </div>
+      </div>
+    );
   }
 }
 export default App;
