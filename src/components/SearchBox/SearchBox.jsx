@@ -1,3 +1,4 @@
+import { CityNameError } from "../Error/CityNameError/CityNameError";
 import "./SearchBox.css";
 
 export function SearchBox({
@@ -20,14 +21,7 @@ export function SearchBox({
         />
         <div onClick={handlerSearchButton} className="search"></div>
       </div>
-      {error && (
-        <div className="error-msg">
-          Location not found.
-          <br />
-          Search must be in the form of "City", "City, State" or "City,
-          Country".
-        </div>
-      )}
+      {error && <CityNameError />}
 
       <div onClick={handlerChangeUnits} className="weather-info__units">
         {units === "metric" ? "Display °F" : "Display °C"}
