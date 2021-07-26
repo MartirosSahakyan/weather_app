@@ -1,4 +1,5 @@
 import { CityNameError } from "../Error/CityNameError/CityNameError";
+import { Loading } from "../Loading/Loading";
 import "./SearchBox.css";
 
 export function SearchBox({
@@ -8,6 +9,7 @@ export function SearchBox({
   handlerChangeUnits,
   units,
   error,
+  loading,
 }) {
   return (
     <div className="weather-info">
@@ -19,7 +21,11 @@ export function SearchBox({
           className="search-box-input"
           placeholder="Search Location..."
         />
-        <div onClick={handlerSearchButton} className="search"></div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div onClick={handlerSearchButton} className="search"></div>
+        )}
       </div>
       {error && <CityNameError />}
 

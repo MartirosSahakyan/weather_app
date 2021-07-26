@@ -82,6 +82,7 @@ class App extends React.Component {
       data: { daily },
       error,
       units,
+      loading
     } = this.state;
     // console.log(daily);
     // console.log(error);
@@ -100,6 +101,7 @@ class App extends React.Component {
             units={units}
             handlerChangeUnits={this.handlerChangeUnits}
             error={error.cityNameError}
+            loading={loading}
           />
           <WeatherDetails currWeatherInfo={current} units={units} />
         </div>
