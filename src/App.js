@@ -4,8 +4,8 @@ import { DailyForecast } from "./components/DailyForecast/DailyForecast";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { WeatherDetails } from "./components/weatherDetails/WeatherDetails";
 import { WeatherInfo } from "./components/weatherInfo/WeatherInfo";
-import { API_KEY, API_URL } from "./helpers/constants";
-import { handleResponse } from "./helpers/helper";
+import { getWeatherByCityName, getWeatherByCoords } from "./service/service";
+import { UNITS } from "./helpers/constants";
 
 let cityName = "London";
 class App extends React.Component {
@@ -13,57 +13,14 @@ class App extends React.Component {
     super(props);
     this.state = {
       data: "",
-      units: "metric",
+      units: UNITS.CELSIUS,
       error: false,
     };
   }
   componentDidMount() {
-    fetch(`${API_URL}weather?q=${cityName}&appid=${API_KEY}`)
-      .then((response) => response.json())
-      .then(({ coord: { lat, lon } }) => {
-        return fetch(
-          `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=${this.state.units}&appid=${API_KEY}`
-        )
-          .then((res) => res.json())
-          .then((res) => {
-            this.setState({ data: res });
-          });
-      });
-  }
-
-  handlerInput = ({ target: { value } }) => {
-    cityName = value;
-  };
-  handlerKeyDown = (evt) => {
-    if (evt.key === "Enter") {
-      fetch(`${API_URL}weather?q=${cityName}&appid=${API_KEY}`)
-        .then(handleResponse)
-        .then(({ coord: { lat, lon } }) => {
-          return fetch(
-            `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=${this.state.units}&appid=${API_KEY}`
-          )
-            .then((res) => res.json())
-            .then((res) => {
-              this.setState({
-                data: res,
-                error: false,
-              });
-              return res;
-            });
-        })
-        .catch((e) => {
-          this.setState({ error: true });
-        });
-    }
-  };
-  handlerSearchButton = () => {
-    fetch(`${API_URL}weather?q=${cityName}&appid=${API_KEY}`)
-      .then(handleResponse)
-      .then(({ coord: { lat, lon } }) => {
-        return fetch(
-          `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=${this.state.units}&appid=${API_KEY}`
-        )
-          .then((res) => res.json())
+    getWeatherByCityName(cityName)
+      .then(({ coord }) => {
+        return getWeatherByCoords(coord, this.state.units)
           .then((res) => {
             this.setState({
               data: res,
@@ -71,7 +28,55 @@ class App extends React.Component {
             });
             return res;
           })
-          .catch((e) => alert("reload page window.location.reload()"));
+          .catch((e) => {
+            alert("reload page window.location.reload()");
+          });
+      })
+      .catch((e) => {
+        this.setState({ error: true });
+      });
+  }
+
+  handlerInput = ({ target: { value } }) => {
+    cityName = value;
+  };
+
+  handlerKeyDown = (evt) => {
+    if (evt.key === "Enter") {
+      getWeatherByCityName(cityName)
+        .then(({ coord }) => {
+          return getWeatherByCoords(coord, this.state.units)
+            .then((res) => {
+              this.setState({
+                data: res,
+                error: false,
+              });
+              return res;
+            })
+            .catch((e) => {
+              alert("reload page window.location.reload()");
+            });
+        })
+        .catch((e) => {
+          this.setState({ error: true });
+        });
+    }
+  };
+
+  handlerSearchButton = () => {
+    getWeatherByCityName(cityName)
+      .then(({ coord }) => {
+        return getWeatherByCoords(coord, this.state.units)
+          .then((res) => {
+            this.setState({
+              data: res,
+              error: false,
+            });
+            return res;
+          })
+          .catch((e) => {
+            alert("reload page window.location.reload()");
+          });
       })
       .catch((e) => {
         this.setState({ error: true });
@@ -79,21 +84,27 @@ class App extends React.Component {
   };
 
   handlerChangeUnits = () => {
-    if (this.state.units === "metric") {
-      this.setState({ units: "imperial" });
+    if (this.state.units === UNITS.CELSIUS) {
+      this.setState({ units: UNITS.FAHRENHEIT });
     } else {
-      this.setState({ units: "metric" });
+      this.setState({ units: UNITS.CELSIUS });
     }
-    fetch(`${API_URL}weather?q=${cityName}&appid=${API_KEY}`)
-      .then((response) => response.json())
-      .then(({ coord: { lat, lon } }) => {
-        return fetch(
-          `${API_URL}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=${this.state.units}&appid=${API_KEY}`
-        )
-          .then((res) => res.json())
+    getWeatherByCityName(cityName)
+      .then(({ coord }) => {
+        return getWeatherByCoords(coord, this.state.units)
           .then((res) => {
-            this.setState({ data: res });
+            this.setState({
+              data: res,
+              error: false,
+            });
+            return res;
+          })
+          .catch((e) => {
+            alert("reload page window.location.reload()");
           });
+      })
+      .catch((e) => {
+        this.setState({ error: true });
       });
   };
 

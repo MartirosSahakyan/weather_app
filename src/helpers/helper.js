@@ -26,9 +26,3 @@ export function toUpperCaseWords(string) {
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ");
 }
-
-export const handleResponse = (response) => {
-  return response.json().then(json => {
-      return response.ok ? json : Promise.reject(json);
-  });
-}
