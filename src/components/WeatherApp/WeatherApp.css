@@ -80,29 +80,3 @@ li {
   }
 }
 
-/* Hours */
-.change-hours {
-  display: flex; /*  */
-  margin-left: 1rem;
-  width: 9rem;
-  justify-content: space-between;
-  align-items: center;
-}
-/* .change-hours__left,
-.change-hours__right {
-  width: 1.3rem;
-  cursor: pointer;
-} */
-/* .dot {
-  position: relative;
-  top: -1px;
-  height: 7px;
-  width: 7px;
-  background-color: transparent;
-  border: 1px solid #f5f5f5;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.dot-selected {
-  background-color: #f5f5f5;
-} */

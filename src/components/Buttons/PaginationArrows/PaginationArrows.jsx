@@ -1,7 +1,8 @@
 // import cn from "classnames";
 import { ARROW_TYPES } from "../../../helpers/constants";
 import "./PaginationArrows.css";
-
+// import left from '../../../assets/SVG/arrow_left.svg'
+// import right from '../../../assets/SVG/arrow_left.svg'
 export function PaginationArrows({ handleClick, arrow }) {
   return (
     <div onClick={handleClick} className="change-hours__arrow">

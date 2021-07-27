@@ -14,6 +14,7 @@ import cn from "classnames";
 import { sliceHourlyWeather } from "../../helpers/helper";
 import { PaginationDots } from "../Buttons/PaginationDots/PaginationDots";
 import { PaginationArrows } from "../Buttons/PaginationArrows/PaginationArrows";
+import { Pagination } from "../Pagination/Pagination";
 
 let cityName = "London";
 // console.log(window.navigator.geolocation);
@@ -241,28 +242,12 @@ class WeatherApp extends React.Component {
               Hourly
             </div>
             {forecastDetail === DETAIL_TYPES.HOURLY && (
-              <div className="change-hours">
-                <PaginationArrows
-                  handleClick={this.handleLeftClick}
-                  arrow={ARROW_TYPES.LEFT}
-                />
-                <PaginationDots
-                  handleClick={(id) => this.handleDotsClick(1)}
-                  page={pages.page1}
-                />
-                <PaginationDots
-                  handleClick={(id) => this.handleDotsClick(2)}
-                  page={pages.page2}
-                />
-                <PaginationDots
-                  handleClick={(id) => this.handleDotsClick(3)}
-                  page={pages.page3}
-                />
-                <PaginationArrows
-                  handleClick={this.handleRightClick}
-                  arrow={ARROW_TYPES.RIGHT}
-                />
-              </div>
+              <Pagination
+                handleLeftClick={this.handleLeftClick}
+                handleRightClick={this.handleRightClick}
+                handleDotsClick={this.handleDotsClick}
+                pages={pages}
+              />
             )}
           </div>
 
