@@ -11,7 +11,7 @@
 }
 
 .forecast-hourly-outer-container {
-  display: flex;  /*  */
+  display: block; 
 }
 
 
