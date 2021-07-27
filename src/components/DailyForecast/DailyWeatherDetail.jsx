@@ -1,3 +1,4 @@
+import { UNITS } from "../../helpers/constants";
 import { getIcon } from "../../helpers/getIcon";
 import { formatWeekDay } from "../../helpers/helper";
 import "./DailyWeatherDetail.css";
@@ -10,10 +11,10 @@ export function DailyWeatherDetail({ dailyWeather, units }) {
       </div>
       <div className="forecast-daily__temperature">
         <div className="forecast-daily__temperature-high">
-          {Math.round(dailyWeather.temp.max)} {units === "metric" ? "°C" : "°F"}
+          {Math.round(dailyWeather.temp.max)} {units === UNITS.CELSIUS ? "°C" : "°F"}
         </div>
         <div className="forecast-daily__temperature-low">
-          {Math.round(dailyWeather.temp.min)} {units === "metric" ? "°C" : "°F"}
+          {Math.round(dailyWeather.temp.min)} {units === UNITS.CELSIUS ? "°C" : "°F"}
         </div>
       </div>
       <div className="forecast-daily__icon">

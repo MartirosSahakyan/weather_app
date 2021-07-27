@@ -1,3 +1,4 @@
+import { UNITS } from "../../helpers/constants";
 import { getIcon } from "../../helpers/getIcon";
 import { formatHourAmPm } from "../../helpers/helper";
 import "./HourlyForecastDetail.css";
@@ -10,7 +11,7 @@ export function HourlyForecastDetail({ hourlyWeather, units }) {
       </div>
       <div className="forecast-hourly__temperature">
         <div className="forecast-hourly__temperature-high">
-          {Math.round(hourlyWeather.temp)} {units === "metric" ? "°C" : "°F"}
+          {Math.round(hourlyWeather.temp)} {units === UNITS.CELSIUS ? "°C" : "°F"}
         </div>
       </div>
       <div className="forecast-hourly__icon">
