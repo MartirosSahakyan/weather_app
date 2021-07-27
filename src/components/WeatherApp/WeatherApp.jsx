@@ -89,6 +89,7 @@ class WeatherApp extends React.Component {
   handleDailyButtonClick = () => {
     this.setState({ forecastDetail: DETAIL_TYPES.DAILY });
   };
+
   handleHourlyButtonClick = () => {
     this.setState({ forecastDetail: DETAIL_TYPES.HOURLY });
   };
@@ -259,4 +260,5 @@ class WeatherApp extends React.Component {
     );
   }
 }
+
 export default WeatherApp;
