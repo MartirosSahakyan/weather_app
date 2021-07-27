@@ -1,5 +1,5 @@
 .forecast-daily-container {
-  display: flex;
+   display: none;  /* */
   justify-content: space-between;
 }
 @media (max-width: 550px) {

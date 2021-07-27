@@ -1,0 +1,17 @@
+.forecast-hourly-container {
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 550px) {
+  .forecast-daily-container,
+  .forecast-hourly-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.forecast-hourly-outer-container {
+  display: flex;  /*  */
+}
+
+
