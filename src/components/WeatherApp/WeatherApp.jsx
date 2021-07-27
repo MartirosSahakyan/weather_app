@@ -83,6 +83,7 @@ class WeatherApp extends React.Component {
     let {
       data: { current },
       data: { daily },
+      data: { hourly },
       error,
       units,
       loading,
@@ -142,7 +143,7 @@ class WeatherApp extends React.Component {
             </div>
           </div>
             <DailyForecast dailyWeatherInfo={daily} units={units} />
-            <HourlyForecast />
+            <HourlyForecast hourlyWeatherInfo ={hourly} units={units}/>
         </div>
       </div>
     );
