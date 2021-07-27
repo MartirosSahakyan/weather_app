@@ -1,5 +1,6 @@
 import React from "react";
-import { ARROW_TYPES, DETAIL_TYPES, UNITS } from "../../helpers/constants";
+import "./WeatherApp.css";
+import { DETAIL_TYPES, UNITS } from "../../helpers/constants";
 import {
   getWeatherByCityName,
   getWeatherByCoords,
@@ -9,12 +10,9 @@ import { HourlyForecast } from "../HourlyForecast/HourlyForecast";
 import { SearchBox } from "../SearchBox/SearchBox";
 import { WeatherDetails } from "../weatherDetails/WeatherDetails";
 import { WeatherInfo } from "../weatherInfo/WeatherInfo";
-import "./WeatherApp.css";
-import cn from "classnames";
 import { sliceHourlyWeather } from "../../helpers/helper";
-import { PaginationDots } from "../Buttons/PaginationDots/PaginationDots";
-import { PaginationArrows } from "../Buttons/PaginationArrows/PaginationArrows";
 import { Pagination } from "../Pagination/Pagination";
+import { DetailButton } from "../Buttons/DetailButton/DetailButton";
 
 let cityName = "London";
 // console.log(window.navigator.geolocation);
@@ -126,6 +124,7 @@ class WeatherApp extends React.Component {
       }
     });
   };
+
   handleRightClick = () => {
     this.setState(({ pages }) => {
       if (pages.page1) {
@@ -157,6 +156,7 @@ class WeatherApp extends React.Component {
       }
     });
   };
+
   handleLeftClick = () => {
     this.setState(({ pages }) => {
       if (pages.page1) {
@@ -225,22 +225,17 @@ class WeatherApp extends React.Component {
 
         <div className="forecast">
           <div className="change-forecast">
-            <div
-              onClick={this.handleDailyButtonClick}
-              className={cn("daily-btn", {
-                "forecast-selected": forecastDetail === DETAIL_TYPES.DAILY,
-              })}
-            >
-              Daily
-            </div>
-            <div
-              onClick={this.handleHourlyButtonClick}
-              className={cn("hourly-btn", {
-                "forecast-selected": forecastDetail === DETAIL_TYPES.HOURLY,
-              })}
-            >
-              Hourly
-            </div>
+            <DetailButton
+              handleClick={this.handleDailyButtonClick}
+              text={DETAIL_TYPES.DAILY}
+              detailType={forecastDetail}
+            />
+            <DetailButton
+              handleClick={this.handleHourlyButtonClick}
+              text={DETAIL_TYPES.HOURLY}
+              detailType={forecastDetail}
+            />
+
             {forecastDetail === DETAIL_TYPES.HOURLY && (
               <Pagination
                 handleLeftClick={this.handleLeftClick}
