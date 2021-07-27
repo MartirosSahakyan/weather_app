@@ -1,5 +1,5 @@
 import React from "react";
-import { DETAIL_TYPES, UNITS } from "../../helpers/constants";
+import { ARROW_TYPES, DETAIL_TYPES, UNITS } from "../../helpers/constants";
 import {
   getWeatherByCityName,
   getWeatherByCoords,
@@ -12,6 +12,8 @@ import { WeatherInfo } from "../weatherInfo/WeatherInfo";
 import "./WeatherApp.css";
 import cn from "classnames";
 import { sliceHourlyWeather } from "../../helpers/helper";
+import { PaginationDots } from "../Buttons/PaginationDots/PaginationDots";
+import { PaginationArrows } from "../Buttons/PaginationArrows/PaginationArrows";
 
 let cityName = "London";
 // console.log(window.navigator.geolocation);
@@ -240,50 +242,30 @@ class WeatherApp extends React.Component {
             </div>
             {forecastDetail === DETAIL_TYPES.HOURLY && (
               <div className="change-hours">
-                <div
-                  onClick={this.handleLeftClick}
-                  className="change-hours__left"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    version="1.1"
-                    viewBox="8.02 6 7.41 12"
-                    fill="#f5f5f5"
-                  >
-                    <title>arrow_left</title>
-                    <path d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z" />
-                  </svg>
-                </div>
-                <div
-                  onClick={(id) => this.handleDotsClick(1)}
-                  className={cn("dot", { "dot-selected": pages.page1 })}
-                ></div>
-                <div
-                  onClick={(id) => this.handleDotsClick(2)}
-                  className={cn("dot", { "dot-selected": pages.page2 })}
-                ></div>
-                <div
-                  onClick={(id) => this.handleDotsClick(3)}
-                  className={cn("dot", { "dot-selected": pages.page3 })}
-                ></div>
-                <div
-                  onClick={this.handleRightClick}
-                  className="change-hours__right"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    version="1.1"
-                    viewBox="8.58 6 7.41 12"
-                    fill="#f5f5f5"
-                  >
-                    <title>arrow_right</title>
-                    <path d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z" />
-                  </svg>
-                </div>
+                <PaginationArrows
+                  handleClick={this.handleLeftClick}
+                  arrow={ARROW_TYPES.LEFT}
+                />
+                <PaginationDots
+                  handleClick={(id) => this.handleDotsClick(1)}
+                  page={pages.page1}
+                />
+                <PaginationDots
+                  handleClick={(id) => this.handleDotsClick(2)}
+                  page={pages.page2}
+                />
+                <PaginationDots
+                  handleClick={(id) => this.handleDotsClick(3)}
+                  page={pages.page3}
+                />
+                <PaginationArrows
+                  handleClick={this.handleRightClick}
+                  arrow={ARROW_TYPES.RIGHT}
+                />
               </div>
             )}
           </div>
-         
+
           {forecastDetail === DETAIL_TYPES.DAILY ? (
             <DailyForecast dailyWeatherInfo={daily} units={units} />
           ) : (
