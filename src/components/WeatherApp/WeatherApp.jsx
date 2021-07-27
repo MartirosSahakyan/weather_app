@@ -11,6 +11,7 @@ import { WeatherDetails } from "../weatherDetails/WeatherDetails";
 import { WeatherInfo } from "../weatherInfo/WeatherInfo";
 import "./WeatherApp.css";
 import cn from "classnames";
+import { sliceHourlyWeather } from "../../helpers/helper";
 
 let cityName = "London";
 // console.log(window.navigator.geolocation);
@@ -26,10 +27,10 @@ class WeatherApp extends React.Component {
       },
       loading: false,
       forecastDetail: DETAIL_TYPES.DAILY,
-      dots: {
-        dot1: true,
-        dot2: false,
-        dot3: false,
+      pages: {
+        page1: true,
+        page2: false,
+        page3: false,
       },
     };
   }
@@ -95,90 +96,90 @@ class WeatherApp extends React.Component {
     this.setState(() => {
       if (id === 1) {
         return {
-          dots: {
-            dot1: true,
-            dot2: false,
-            dot3: false,
+          pages: {
+            page1: true,
+            page2: false,
+            page3: false,
           },
         };
       }
       if (id === 2) {
         return {
-          dots: {
-            dot1: false,
-            dot2: true,
-            dot3: false,
+          pages: {
+            page1: false,
+            page2: true,
+            page3: false,
           },
         };
       }
       if (id === 3) {
         return {
-          dots: {
-            dot1: false,
-            dot2: false,
-            dot3: true,
+          pages: {
+            page1: false,
+            page2: false,
+            page3: true,
           },
         };
       }
     });
   };
   handleRightClick = () => {
-    this.setState(({ dots }) => {
-      if (dots.dot1) {
+    this.setState(({ pages }) => {
+      if (pages.page1) {
         return {
-          dots: {
-            dot1: false,
-            dot2: true,
-            dot3: false,
+          pages: {
+            page1: false,
+            page2: true,
+            page3: false,
           },
         };
       }
-      if (dots.dot2) {
+      if (pages.page2) {
         return {
-          dots: {
-            dot1: false,
-            dot2: false,
-            dot3: true,
+          pages: {
+            page1: false,
+            page2: false,
+            page3: true,
           },
         };
       }
-      if (dots.dot3) {
+      if (pages.page3) {
         return {
-          dots: {
-            dot1: true,
-            dot2: false,
-            dot3: false,
+          pages: {
+            page1: true,
+            page2: false,
+            page3: false,
           },
         };
       }
     });
   };
   handleLeftClick = () => {
-    this.setState(({ dots }) => {
-      if (dots.dot1) {
+    this.setState(({ pages }) => {
+      if (pages.page1) {
         return {
-          dots: {
-            dot1: false,
-            dot2: false,
-            dot3: true,
+          pages: {
+            page1: false,
+            page2: false,
+            page3: true,
           },
         };
       }
-      if (dots.dot2) {
+      if (pages.page2) {
         return {
-          dots: {
-            dot1: true,
-            dot2: false,
-            dot3: false,
+          pages: {
+            page1: true,
+            page2: false,
+            page3: false,
           },
         };
       }
-      if (dots.dot3) {
+      if (pages.page3) {
         return {
-          dots: {
-            dot1: false,
-            dot2: true,
-            dot3: false,
+          pages: {
+            page1: false,
+            page2: true,
+            page3: false,
           },
         };
       }
@@ -196,24 +197,9 @@ class WeatherApp extends React.Component {
       units,
       loading,
       forecastDetail,
-      dots,
+      pages,
     } = this.state;
 
-    function sliceHourlyWeather(dots) {
-      if (dots.dot1) {
-        return hourly.slice(0, 8);
-      }
-      if (dots.dot2) {
-        return hourly.slice(8, 16);
-      }
-      if (dots.dot3) {
-        return hourly.slice(16, 24);
-      }
-    }
-    // const first8Hours = hourly.slice(0, 8)
-    // const second8Hours = hourly.slice(8, 16)
-    // const third8Hours = hourly.slice(16, 24)
-    // console.log(dots);
     return (
       <div className="body">
         <div className="main">
@@ -270,15 +256,15 @@ class WeatherApp extends React.Component {
                 </div>
                 <div
                   onClick={(id) => this.handleDotsClick(1)}
-                  className={cn("dot", { "dot-selected": dots.dot1 })}
+                  className={cn("dot", { "dot-selected": pages.page1 })}
                 ></div>
                 <div
                   onClick={(id) => this.handleDotsClick(2)}
-                  className={cn("dot", { "dot-selected": dots.dot2 })}
+                  className={cn("dot", { "dot-selected": pages.page2 })}
                 ></div>
                 <div
                   onClick={(id) => this.handleDotsClick(3)}
-                  className={cn("dot", { "dot-selected": dots.dot3 })}
+                  className={cn("dot", { "dot-selected": pages.page3 })}
                 ></div>
                 <div
                   onClick={this.handleRightClick}
@@ -302,7 +288,7 @@ class WeatherApp extends React.Component {
             <DailyForecast dailyWeatherInfo={daily} units={units} />
           ) : (
             <HourlyForecast
-              hourlyWeathers={sliceHourlyWeather(dots)}
+              hourlyWeathers={sliceHourlyWeather(pages, hourly)}
               units={units}
             />
           )}

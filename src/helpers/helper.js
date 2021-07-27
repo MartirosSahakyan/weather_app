@@ -48,3 +48,15 @@ export function toUpperCaseWords(string) {
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+export  function sliceHourlyWeather(pages, data) {
+  if (pages.page1) {
+    return data.slice(0, 8);
+  }
+  if (pages.page2) {
+    return data.slice(8, 16);
+  }
+  if (pages.page3) {
+    return data.slice(16, 24);
+  }
+}
