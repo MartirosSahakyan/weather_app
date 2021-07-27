@@ -1,5 +1,5 @@
 import React from "react";
-import { UNITS } from "../../helpers/constants";
+import { DETAIL_TYPES, UNITS } from "../../helpers/constants";
 import {
   getWeatherByCityName,
   getWeatherByCoords,
@@ -24,6 +24,7 @@ class WeatherApp extends React.Component {
         coordsError: false,
       },
       loading: false,
+      forecastDetail: DETAIL_TYPES.DAILY,
     };
   }
 
@@ -77,6 +78,13 @@ class WeatherApp extends React.Component {
     this.getWeatherData(cityName, units);
   };
 
+  handleDailyButtonsClick = () => {
+    this.setState({ forecastDetail: DETAIL_TYPES.DAILY });
+  };
+  handleHourlyButtonsClick = () => {
+    this.setState({ forecastDetail: DETAIL_TYPES.HOURLY });
+  };
+
   render() {
     if (!this.state.data) return <div className="body"></div>;
 
@@ -87,9 +95,9 @@ class WeatherApp extends React.Component {
       error,
       units,
       loading,
+      forecastDetail,
     } = this.state;
-    // console.log(daily);
-    // console.log(this.state.data.hourly);
+
     return (
       <div className="body">
         <div className="main">
@@ -112,8 +120,26 @@ class WeatherApp extends React.Component {
 
         <div className="forecast">
           <div className="change-forecast">
-            <div className="daily-btn">Daily</div>
-            <div className="hourly-btn forecast-selected">Hourly</div>
+            <div
+              onClick={this.handleDailyButtonsClick}
+              className={
+                forecastDetail === DETAIL_TYPES.DAILY
+                  ? "daily-btn forecast-selected"
+                  : "daily-btn"
+              }
+            >
+              Daily
+            </div>
+            <div
+              onClick={this.handleHourlyButtonsClick}
+              className={
+                forecastDetail === DETAIL_TYPES.HOURLY
+                  ? "hourly-btn forecast-selected"
+                  : "hourly-btn"
+              }
+            >
+              Hourly
+            </div>
             <div className="change-hours">
               <div className="change-hours__left">
                 <svg
@@ -142,8 +168,13 @@ class WeatherApp extends React.Component {
               </div>
             </div>
           </div>
+          {forecastDetail === DETAIL_TYPES.DAILY ? (
             <DailyForecast dailyWeatherInfo={daily} units={units} />
-            <HourlyForecast hourlyWeatherInfo ={hourly} units={units}/>
+          ) : (
+            <HourlyForecast hourlyWeatherInfo={hourly} units={units} />
+          )}
+          {/* <DailyForecast dailyWeatherInfo={daily} units={units} /> 
+          <HourlyForecast hourlyWeatherInfo={hourly} units={units} /> */}
         </div>
       </div>
     );
