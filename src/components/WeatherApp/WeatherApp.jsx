@@ -10,6 +10,7 @@ import { SearchBox } from "../SearchBox/SearchBox";
 import { WeatherDetails } from "../weatherDetails/WeatherDetails";
 import { WeatherInfo } from "../weatherInfo/WeatherInfo";
 import "./WeatherApp.css";
+import cn from "classnames";
 
 let cityName = "London";
 // console.log(window.navigator.geolocation);
@@ -25,6 +26,11 @@ class WeatherApp extends React.Component {
       },
       loading: false,
       forecastDetail: DETAIL_TYPES.DAILY,
+      dots: {
+        dot1: true,
+        dot2: false,
+        dot3: false,
+      },
     };
   }
 
@@ -78,11 +84,105 @@ class WeatherApp extends React.Component {
     this.getWeatherData(cityName, units);
   };
 
-  handleDailyButtonsClick = () => {
+  handleDailyButtonClick = () => {
     this.setState({ forecastDetail: DETAIL_TYPES.DAILY });
   };
-  handleHourlyButtonsClick = () => {
+  handleHourlyButtonClick = () => {
     this.setState({ forecastDetail: DETAIL_TYPES.HOURLY });
+  };
+
+  handleDotsClick = (id) => {
+    this.setState(() => {
+      if (id === 1) {
+        return {
+          dots: {
+            dot1: true,
+            dot2: false,
+            dot3: false,
+          },
+        };
+      }
+      if (id === 2) {
+        return {
+          dots: {
+            dot1: false,
+            dot2: true,
+            dot3: false,
+          },
+        };
+      }
+      if (id === 3) {
+        return {
+          dots: {
+            dot1: false,
+            dot2: false,
+            dot3: true,
+          },
+        };
+      }
+    });
+  };
+  handleRightClick = () => {
+    this.setState(({ dots }) => {
+      if (dots.dot1) {
+        return {
+          dots: {
+            dot1: false,
+            dot2: true,
+            dot3: false,
+          },
+        };
+      }
+      if (dots.dot2) {
+        return {
+          dots: {
+            dot1: false,
+            dot2: false,
+            dot3: true,
+          },
+        };
+      }
+      if (dots.dot3) {
+        return {
+          dots: {
+            dot1: true,
+            dot2: false,
+            dot3: false,
+          },
+        };
+      }
+    });
+  };
+  handleLeftClick = () => {
+    this.setState(({ dots }) => {
+      if (dots.dot1) {
+        return {
+          dots: {
+            dot1: false,
+            dot2: false,
+            dot3: true,
+          },
+        };
+      }
+      if (dots.dot2) {
+        return {
+          dots: {
+            dot1: true,
+            dot2: false,
+            dot3: false,
+          },
+        };
+      }
+      if (dots.dot3) {
+        return {
+          dots: {
+            dot1: false,
+            dot2: true,
+            dot3: false,
+          },
+        };
+      }
+    });
   };
 
   render() {
@@ -96,8 +196,24 @@ class WeatherApp extends React.Component {
       units,
       loading,
       forecastDetail,
+      dots,
     } = this.state;
 
+    function sliceHourlyWeather(dots) {
+      if (dots.dot1) {
+        return hourly.slice(0, 8);
+      }
+      if (dots.dot2) {
+        return hourly.slice(8, 16);
+      }
+      if (dots.dot3) {
+        return hourly.slice(16, 24);
+      }
+    }
+    // const first8Hours = hourly.slice(0, 8)
+    // const second8Hours = hourly.slice(8, 16)
+    // const third8Hours = hourly.slice(16, 24)
+    // console.log(dots);
     return (
       <div className="body">
         <div className="main">
@@ -121,60 +237,74 @@ class WeatherApp extends React.Component {
         <div className="forecast">
           <div className="change-forecast">
             <div
-              onClick={this.handleDailyButtonsClick}
-              className={
-                forecastDetail === DETAIL_TYPES.DAILY
-                  ? "daily-btn forecast-selected"
-                  : "daily-btn"
-              }
+              onClick={this.handleDailyButtonClick}
+              className={cn("daily-btn", {
+                "forecast-selected": forecastDetail === DETAIL_TYPES.DAILY,
+              })}
             >
               Daily
             </div>
             <div
-              onClick={this.handleHourlyButtonsClick}
-              className={
-                forecastDetail === DETAIL_TYPES.HOURLY
-                  ? "hourly-btn forecast-selected"
-                  : "hourly-btn"
-              }
+              onClick={this.handleHourlyButtonClick}
+              className={cn("hourly-btn", {
+                "forecast-selected": forecastDetail === DETAIL_TYPES.HOURLY,
+              })}
             >
               Hourly
             </div>
-           {
-             forecastDetail === DETAIL_TYPES.HOURLY && 
-             <div className="change-hours">
-             <div className="change-hours__left">
-               <svg
-                 xmlns="http://www.w3.org/2000/svg"
-                 version="1.1"
-                 viewBox="8.02 6 7.41 12"
-                 fill="#f5f5f5"
-               >
-                 <title>arrow_left</title>
-                 <path d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z" />
-               </svg>
-             </div>
-             <div className="dot dot1 dot-selected" data-dot="1"></div>
-             <div className="dot dot2" data-dot="2"></div>
-             <div className="dot dot3" data-dot="3"></div>
-             <div className="change-hours__right">
-               <svg
-                 xmlns="http://www.w3.org/2000/svg"
-                 version="1.1"
-                 viewBox="8.58 6 7.41 12"
-                 fill="#f5f5f5"
-               >
-                 <title>arrow_right</title>
-                 <path d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z" />
-               </svg>
-             </div>
-           </div>
-           }
+            {forecastDetail === DETAIL_TYPES.HOURLY && (
+              <div className="change-hours">
+                <div
+                  onClick={this.handleLeftClick}
+                  className="change-hours__left"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    viewBox="8.02 6 7.41 12"
+                    fill="#f5f5f5"
+                  >
+                    <title>arrow_left</title>
+                    <path d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z" />
+                  </svg>
+                </div>
+                <div
+                  onClick={(id) => this.handleDotsClick(1)}
+                  className={cn("dot", { "dot-selected": dots.dot1 })}
+                ></div>
+                <div
+                  onClick={(id) => this.handleDotsClick(2)}
+                  className={cn("dot", { "dot-selected": dots.dot2 })}
+                ></div>
+                <div
+                  onClick={(id) => this.handleDotsClick(3)}
+                  className={cn("dot", { "dot-selected": dots.dot3 })}
+                ></div>
+                <div
+                  onClick={this.handleRightClick}
+                  className="change-hours__right"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    viewBox="8.58 6 7.41 12"
+                    fill="#f5f5f5"
+                  >
+                    <title>arrow_right</title>
+                    <path d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z" />
+                  </svg>
+                </div>
+              </div>
+            )}
           </div>
+         
           {forecastDetail === DETAIL_TYPES.DAILY ? (
             <DailyForecast dailyWeatherInfo={daily} units={units} />
           ) : (
-            <HourlyForecast  hourlyWeatherInfo={hourly} units={units} />
+            <HourlyForecast
+              hourlyWeathers={sliceHourlyWeather(dots)}
+              units={units}
+            />
           )}
         </div>
       </div>
