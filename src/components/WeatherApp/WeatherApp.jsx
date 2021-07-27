@@ -140,41 +140,42 @@ class WeatherApp extends React.Component {
             >
               Hourly
             </div>
-            <div className="change-hours">
-              <div className="change-hours__left">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                  viewBox="8.02 6 7.41 12"
-                  fill="#f5f5f5"
-                >
-                  <title>arrow_left</title>
-                  <path d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z" />
-                </svg>
-              </div>
-              <div className="dot dot1 dot-selected" data-dot="1"></div>
-              <div className="dot dot2" data-dot="2"></div>
-              <div className="dot dot3" data-dot="3"></div>
-              <div className="change-hours__right">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                  viewBox="8.58 6 7.41 12"
-                  fill="#f5f5f5"
-                >
-                  <title>arrow_right</title>
-                  <path d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z" />
-                </svg>
-              </div>
-            </div>
+           {
+             forecastDetail === DETAIL_TYPES.HOURLY && 
+             <div className="change-hours">
+             <div className="change-hours__left">
+               <svg
+                 xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 viewBox="8.02 6 7.41 12"
+                 fill="#f5f5f5"
+               >
+                 <title>arrow_left</title>
+                 <path d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z" />
+               </svg>
+             </div>
+             <div className="dot dot1 dot-selected" data-dot="1"></div>
+             <div className="dot dot2" data-dot="2"></div>
+             <div className="dot dot3" data-dot="3"></div>
+             <div className="change-hours__right">
+               <svg
+                 xmlns="http://www.w3.org/2000/svg"
+                 version="1.1"
+                 viewBox="8.58 6 7.41 12"
+                 fill="#f5f5f5"
+               >
+                 <title>arrow_right</title>
+                 <path d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z" />
+               </svg>
+             </div>
+           </div>
+           }
           </div>
           {forecastDetail === DETAIL_TYPES.DAILY ? (
             <DailyForecast dailyWeatherInfo={daily} units={units} />
           ) : (
-            <HourlyForecast hourlyWeatherInfo={hourly} units={units} />
+            <HourlyForecast  hourlyWeatherInfo={hourly} units={units} />
           )}
-          {/* <DailyForecast dailyWeatherInfo={daily} units={units} /> 
-          <HourlyForecast hourlyWeatherInfo={hourly} units={units} /> */}
         </div>
       </div>
     );
