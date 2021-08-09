@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
+import "./Pagination.css";
 import { ARROW_TYPES } from "../../constants/constants";
 import { PaginationArrows } from "../Buttons/PaginationArrows/PaginationArrows";
 import { PaginationDots } from "../Buttons/PaginationDots/PaginationDots";
-import "./Pagination.css";
 
 export function Pagination({
   handleLeftClick,
@@ -9,7 +10,6 @@ export function Pagination({
   handleRightClick,
   pages,
 }) {
-    
   return (
     <div className="change-hours">
       <PaginationArrows
@@ -35,3 +35,10 @@ export function Pagination({
     </div>
   );
 }
+
+Pagination.propTypes = {
+  handleLeftClick: PropTypes.func.isRequired,
+  handleDotsClick: PropTypes.func.isRequired,
+  handleRightClick: PropTypes.func.isRequired,
+  pages: PropTypes.object.isRequired,
+};

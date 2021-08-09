@@ -1,10 +1,10 @@
+import PropTypes from "prop-types";
+import "./WeatherInfo.css";
 import { formatDate, formatTime, toUpperCaseWords } from "../../helpers/utils";
 import { getIcon } from "../../helpers/getIcon";
-import PropTypes from 'prop-types';
-import './WeatherInfo.css'
 import { UNITS } from "../../constants/constants";
 
-export function WeatherInfo({currWeatherInfo, cityName, units}) {
+export function WeatherInfo({ currWeatherInfo, cityName, units }) {
   return (
     <div className="weather-info">
       <div className="weather-info__description">
@@ -14,7 +14,8 @@ export function WeatherInfo({currWeatherInfo, cityName, units}) {
       <div className="weather-info__date">{formatDate(currWeatherInfo.dt)}</div>
       <div className="weather-info__date">{formatTime(currWeatherInfo.dt)}</div>
       <div className="weather-info__temperature">
-        {Math.round(currWeatherInfo.temp)} {units === UNITS.CELSIUS ? '°C' : '°F'}
+        {Math.round(currWeatherInfo.temp)}{" "}
+        {units === UNITS.CELSIUS ? "°C" : "°F"}
       </div>
       <div className="weather-info__icon">
         {getIcon(currWeatherInfo.weather[0].icon)}
@@ -23,8 +24,8 @@ export function WeatherInfo({currWeatherInfo, cityName, units}) {
   );
 }
 
-// WeatherInfo.propTypes = {
-//   currWeatherInfo: PropTypes.object.isRequired,
-//   cityName: PropTypes.string.isRequired,
-//   units: PropTypes.string.isRequired
-// }
+WeatherInfo.propTypes = {
+  currWeatherInfo: PropTypes.object.isRequired,
+  cityName: PropTypes.string.isRequired,
+  units: PropTypes.string.isRequired,
+};

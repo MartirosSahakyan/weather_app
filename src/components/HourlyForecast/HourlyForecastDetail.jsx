@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
+import "./HourlyForecastDetail.css";
 import { UNITS } from "../../constants/constants";
 import { getIcon } from "../../helpers/getIcon";
 import { formatHourAmPm } from "../../helpers/utils";
-import "./HourlyForecastDetail.css";
 
 export function HourlyForecastDetail({ hourlyWeather, units }) {
   return (
@@ -11,7 +12,8 @@ export function HourlyForecastDetail({ hourlyWeather, units }) {
       </div>
       <div className="forecast-hourly__temperature">
         <div className="forecast-hourly__temperature-high">
-          {Math.round(hourlyWeather.temp)} {units === UNITS.CELSIUS ? "°C" : "°F"}
+          {Math.round(hourlyWeather.temp)}{" "}
+          {units === UNITS.CELSIUS ? "°C" : "°F"}
         </div>
       </div>
       <div className="forecast-hourly__icon">
@@ -20,3 +22,8 @@ export function HourlyForecastDetail({ hourlyWeather, units }) {
     </div>
   );
 }
+
+HourlyForecastDetail.propTypes = {
+  hourlyWeathers: PropTypes.object,
+  units: PropTypes.string.isRequired,
+};

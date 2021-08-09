@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
+import "./SearchBox.css";
 import { CityNameError } from "../Error/CityNameError/CityNameError";
 import { Loading } from "../Loading/Loading";
-import "./SearchBox.css";
 
 export function SearchBox({
   handlerInput,
@@ -36,4 +37,12 @@ export function SearchBox({
   );
 }
 
-
+SearchBox.propTypes = {
+  handlerInput: PropTypes.func.isRequired,
+  handlerSearchButton: PropTypes.func.isRequired,
+  handlerKeyDown: PropTypes.func.isRequired,
+  handlerChangeUnits: PropTypes.func.isRequired,
+  units: PropTypes.string.isRequired,
+  error: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+};

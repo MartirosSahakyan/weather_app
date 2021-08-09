@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import cn from "classnames";
 import "./DetailButton.css";
 
@@ -13,3 +14,9 @@ export function DetailButton({ handleClick, detailType, text }) {
     </div>
   );
 }
+
+DetailButton.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  detailType: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};

@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
+import "./DailyWeatherDetail.css";
 import { UNITS } from "../../constants/constants";
 import { getIcon } from "../../helpers/getIcon";
 import { formatWeekDay } from "../../helpers/utils";
-import "./DailyWeatherDetail.css";
 
 export function DailyWeatherDetail({ dailyWeather, units }) {
   return (
@@ -11,10 +12,12 @@ export function DailyWeatherDetail({ dailyWeather, units }) {
       </div>
       <div className="forecast-daily__temperature">
         <div className="forecast-daily__temperature-high">
-          {Math.round(dailyWeather.temp.max)} {units === UNITS.CELSIUS ? "°C" : "°F"}
+          {Math.round(dailyWeather.temp.max)}{" "}
+          {units === UNITS.CELSIUS ? "°C" : "°F"}
         </div>
         <div className="forecast-daily__temperature-low">
-          {Math.round(dailyWeather.temp.min)} {units === UNITS.CELSIUS ? "°C" : "°F"}
+          {Math.round(dailyWeather.temp.min)}{" "}
+          {units === UNITS.CELSIUS ? "°C" : "°F"}
         </div>
       </div>
       <div className="forecast-daily__icon">
@@ -23,3 +26,8 @@ export function DailyWeatherDetail({ dailyWeather, units }) {
     </div>
   );
 }
+
+DailyWeatherDetail.propTypes = {
+  dailyWeatherInfo: PropTypes.object,
+  units: PropTypes.string.isRequired,
+};

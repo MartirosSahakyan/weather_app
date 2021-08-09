@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./DailyForecast.css";
 import { DailyWeatherDetail } from "./DailyWeatherDetail";
 
@@ -14,3 +15,8 @@ export function DailyForecast({ dailyWeatherInfo, units }) {
     </div>
   );
 }
+
+DailyForecast.propTypes = {
+  dailyWeatherInfo: PropTypes.arrayOf(PropTypes.object).isRequired, 
+  units: PropTypes.string.isRequired,
+};

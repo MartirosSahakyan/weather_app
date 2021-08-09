@@ -1,5 +1,6 @@
 import "./Loading.css";
-export function Loading() {
+
+export function Loading(props) {
   return (
     <div class="lds-ring">
       <div></div>

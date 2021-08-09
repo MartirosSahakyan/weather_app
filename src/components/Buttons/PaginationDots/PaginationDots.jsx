@@ -1,5 +1,5 @@
-import "./PaginationDots.css";
 import cn from "classnames";
+import "./PaginationDots.css";
 
 export function PaginationDots({ handleClick, page }) {
   return (

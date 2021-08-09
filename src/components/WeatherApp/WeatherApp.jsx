@@ -5,12 +5,12 @@ import {
   getWeatherByCityName,
   getWeatherByCoords,
 } from "../../service/service";
+import { sliceHourlyWeather } from "../../helpers/utils";
 import { DailyForecast } from "../DailyForecast/DailyForecast";
 import { HourlyForecast } from "../HourlyForecast/HourlyForecast";
 import { SearchBox } from "../SearchBox/SearchBox";
 import { WeatherDetails } from "../weatherDetails/WeatherDetails";
 import { WeatherInfo } from "../weatherInfo/WeatherInfo";
-import { sliceHourlyWeather } from "../../helpers/utils";
 import { Pagination } from "../Pagination/Pagination";
 import { DetailButton } from "../Buttons/DetailButton/DetailButton";
 
@@ -20,7 +20,6 @@ let cityName = "London";
 //   console.log(pos.coords.latitude);
 //   console.log(pos.coords.longitude);
 // }, (e)=>{console.log(e)})
-  
 
 class WeatherApp extends React.Component {
   constructor(props) {
