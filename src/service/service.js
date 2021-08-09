@@ -1,5 +1,5 @@
-const API_URL = 'https://api.openweathermap.org/data/2.5/'; 
-const API_KEY = 'fd48bdf8a8b87b3c140f17625f4e2d57'; 
+const API_URL = "https://api.openweathermap.org/data/2.5/";
+const API_KEY = "fd48bdf8a8b87b3c140f17625f4e2d57";
 
 const handleResponse = (response) => {
   return response.json().then((json) => {
@@ -19,3 +19,8 @@ export const getWeatherByCoords = (coords, unit) => {
   ).then(handleResponse);
 };
 
+export const getCityByCoords = (coords) => {
+  return fetch(
+    `http://api.openweathermap.org/geo/1.0/reverse?lat=${coords.lat}&lon=${coords.lon}&limit=2&appid=${API_KEY}`
+  ).then(handleResponse);
+};

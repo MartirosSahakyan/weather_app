@@ -4,6 +4,7 @@ import { DETAIL_TYPES, UNITS } from "../../constants/constants";
 import {
   getWeatherByCityName,
   getWeatherByCoords,
+  getCityByCoords,
 } from "../../service/service";
 import { sliceHourlyWeather } from "../../helpers/utils";
 import { DailyForecast } from "../DailyForecast/DailyForecast";
@@ -38,8 +39,9 @@ class WeatherApp extends React.Component {
   getWeatherData(cityName, units) {
     this.setState({ loading: true });
     getWeatherByCityName(cityName)
-      .then(({ coord }) => {
-        return getWeatherByCoords(coord, units)
+      .then((res) => {
+        this.setState({ cityName: res.name });
+        return getWeatherByCoords(res.coord, units)
           .then((res) => {
             this.setState({
               data: res,
@@ -69,15 +71,16 @@ class WeatherApp extends React.Component {
           lon: Number(pos.coords.longitude.toFixed(4)),
           lat: Number(pos.coords.latitude.toFixed(4)),
         };
-        getWeatherByCoords(userCityCoord, this.state.units)
+        Promise.all([
+          getCityByCoords(userCityCoord),
+          getWeatherByCoords(userCityCoord, this.state.units),
+        ])
           .then((res) => {
-            this.setState({
-              data: res,
-            });
+            this.setState({ cityName: res[0][1].name, data: res[1] });
             return res;
           })
           .catch(() => {
-            this.setState({ cityName: "London" });
+            this.setState({ error: { cityNameError: true } });
           });
       },
       // if user turn off geolocation in browser
