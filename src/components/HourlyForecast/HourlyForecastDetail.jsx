@@ -1,6 +1,6 @@
-import { UNITS } from "../../helpers/constants";
+import { UNITS } from "../../constants/constants";
 import { getIcon } from "../../helpers/getIcon";
-import { formatHourAmPm } from "../../helpers/helper";
+import { formatHourAmPm } from "../../helpers/utils";
 import "./HourlyForecastDetail.css";
 
 export function HourlyForecastDetail({ hourlyWeather, units }) {

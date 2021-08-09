@@ -1,8 +1,8 @@
-import { formatDate, formatTime, toUpperCaseWords } from "../../helpers/helper";
+import { formatDate, formatTime, toUpperCaseWords } from "../../helpers/utils";
 import { getIcon } from "../../helpers/getIcon";
 import PropTypes from 'prop-types';
 import './WeatherInfo.css'
-import { UNITS } from "../../helpers/constants";
+import { UNITS } from "../../constants/constants";
 
 export function WeatherInfo({currWeatherInfo, cityName, units}) {
   return (

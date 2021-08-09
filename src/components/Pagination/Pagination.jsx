@@ -1,4 +1,4 @@
-import { ARROW_TYPES } from "../../helpers/constants";
+import { ARROW_TYPES } from "../../constants/constants";
 import { PaginationArrows } from "../Buttons/PaginationArrows/PaginationArrows";
 import { PaginationDots } from "../Buttons/PaginationDots/PaginationDots";
 import "./Pagination.css";

@@ -1,6 +1,6 @@
-import { UNITS } from "../../helpers/constants";
+import { UNITS } from "../../constants/constants";
 import { getIcon } from "../../helpers/getIcon";
-import { formatWeekDay } from "../../helpers/helper";
+import { formatWeekDay } from "../../helpers/utils";
 import "./DailyWeatherDetail.css";
 
 export function DailyWeatherDetail({ dailyWeather, units }) {

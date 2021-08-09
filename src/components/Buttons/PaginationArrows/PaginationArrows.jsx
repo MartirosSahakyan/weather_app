@@ -1,4 +1,4 @@
-import { ARROW_TYPES } from "../../../helpers/constants";
+import { ARROW_TYPES } from "../../../constants/constants";
 import "./PaginationArrows.css";
 import { ReactComponent as Left } from "../../../assets/SVG/arrow_left.svg";
 import { ReactComponent as Right } from "../../../assets/SVG/arrow_right.svg";
