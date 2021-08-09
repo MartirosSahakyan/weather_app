@@ -10,7 +10,7 @@ export function WeatherInfo({ currWeatherInfo, cityName, units }) {
       <div className="weather-info__description">
         {toUpperCaseWords(currWeatherInfo.weather[0].description)}
       </div>
-      <div className="weather-info__city">{toUpperCaseWords(cityName)}</div>
+      <div className="weather-info__city">{cityName}</div>
       <div className="weather-info__date">{formatDate(currWeatherInfo.dt)}</div>
       <div className="weather-info__date">{formatTime(currWeatherInfo.dt)}</div>
       <div className="weather-info__temperature">
