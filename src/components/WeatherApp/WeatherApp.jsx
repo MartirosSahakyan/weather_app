@@ -20,7 +20,8 @@ class WeatherApp extends React.Component {
     super(props);
     this.state = {
       data: "",
-      cityName: "",
+      searchInputValue: "",
+      city: "",
       units: UNITS.CELSIUS,
       error: {
         cityNameError: false,
@@ -40,7 +41,7 @@ class WeatherApp extends React.Component {
     this.setState({ loading: true });
     getWeatherByCityName(cityName)
       .then((res) => {
-        this.setState({ cityName: res.name });
+        this.setState({ city: res.name });
         return getWeatherByCoords(res.coord, units)
           .then((res) => {
             this.setState({
@@ -76,7 +77,7 @@ class WeatherApp extends React.Component {
           getWeatherByCoords(userCityCoord, this.state.units),
         ])
           .then((res) => {
-            this.setState({ cityName: res[0][1].name, data: res[1] });
+            this.setState({ city: res[0][1].name, data: res[1] });
             return res;
           })
           .catch(() => {
@@ -85,29 +86,29 @@ class WeatherApp extends React.Component {
       },
       // if user turn off geolocation in browser
       () => {
-        this.setState({ cityName: "London" });
+        this.setState({ city: "London" });
       }
     );
   }
 
   handlerInput = ({ target: { value } }) => {
-    this.setState({ cityName: value });
+    this.setState({ searchInputValue: value });
   };
 
   handlerKeyDown = (evt) => {
     if (evt.key === "Enter") {
-      this.getWeatherData(this.state.cityName, this.state.units);
+      this.getWeatherData(this.state.searchInputValue, this.state.units);
     }
   };
 
   handlerSearchButton = () => {
-    this.getWeatherData(this.state.cityName, this.state.units);
+    this.getWeatherData(this.state.searchInputValue, this.state.units);
   };
 
   handlerChangeUnits = () => {
     const units =
       this.state.units === UNITS.CELSIUS ? UNITS.FAHRENHEIT : UNITS.CELSIUS;
-    this.getWeatherData(this.state.cityName, units);
+    this.getWeatherData(this.state.searchInputValue, units);
   };
 
   handleDailyButtonClick = () => {
@@ -233,7 +234,7 @@ class WeatherApp extends React.Component {
         <div className="main">
           <WeatherInfo
             currWeatherInfo={current}
-            cityName={this.state.cityName}
+            city={this.state.city}
             units={units}
           />
           <SearchBox
