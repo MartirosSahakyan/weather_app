@@ -7,6 +7,7 @@ Search a location for forecast data.
  - Display data in CELSIUS or FAHRENHEIT units
  - Unique weather symbols for each forecast description.
 
+ - *Display user location by default*.
 
 ### Used Libraries 
 [React JS](https://ru.reactjs.org/)      
