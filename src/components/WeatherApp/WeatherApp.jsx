@@ -63,7 +63,7 @@ class WeatherApp extends React.Component {
         this.setState({ error: { cityNameError: true }, loading: false });
       });
   }
-
+    
   componentDidMount() {
     // get user geolocation coordinates and display forecast by default
     window.navigator.geolocation.getCurrentPosition(
@@ -86,11 +86,11 @@ class WeatherApp extends React.Component {
       },
       // if user turn off geolocation in browser
       () => {
-        this.setState({ city: "London" });
+        getWeatherData("London", UNITS.CELSIUS)
       }
     );
-  }
-
+    }
+  
   handlerInput = ({ target: { value } }) => {
     this.setState({ searchInputValue: value });
   };
