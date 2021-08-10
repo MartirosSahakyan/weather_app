@@ -86,7 +86,7 @@ class WeatherApp extends React.Component {
       },
       // if user turn off geolocation in browser
       () => {
-        getWeatherData("London", UNITS.CELSIUS)
+        this.getWeatherData("London", UNITS.CELSIUS)
       }
     );
     }

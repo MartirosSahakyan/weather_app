@@ -26,6 +26,6 @@ export function WeatherInfo({ currWeatherInfo, city, units }) {
 
 WeatherInfo.propTypes = {
   currWeatherInfo: PropTypes.object.isRequired,
-  cityName: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
   units: PropTypes.string.isRequired,
 };
